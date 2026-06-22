@@ -96,7 +96,7 @@ def get_dashboard_stats(
     return CRUDDashboard.get_stats(db)
 
 
-@router.post("/check-requisition-period/{requisition_id}", response_model=dict)
+@router.get("/check-requisition-period/{requisition_id}", response_model=dict)
 def check_requisition_period(
     requisition_id: int,
     db: Session = Depends(get_db),

@@ -100,6 +100,18 @@ def confirm_ownership(
         raise HTTPException(status_code=400, detail=str(e))
 
 
+@router.get("/batches/{batch_id}/ownership-status", response_model=BatchOwnershipStatus)
+def get_batch_ownership_status(
+    batch_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    batch = CRUDSupplierBatch.get_by_id(db, batch_id=batch_id)
+    if not batch:
+        raise HTTPException(status_code=404, detail="Batch not found")
+    return CRUDSupplierBatch.get_ownership_status(db, batch_id)
+
+
 @router.get("/ownership-confirmations", response_model=list[StockOwnershipConfirmationResponse])
 def list_ownership_confirmations(
     skip: int = 0,

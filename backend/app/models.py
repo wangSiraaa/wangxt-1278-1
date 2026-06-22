@@ -268,10 +268,6 @@ class MonthlyClosing(Base):
     remark = Column(Text)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-    __table_args__ = (
-        {'postgresql_partition_by': 'LIST (period)'},
-    )
-
 
 class SafetyStockAlert(Base):
     __tablename__ = "safety_stock_alerts"

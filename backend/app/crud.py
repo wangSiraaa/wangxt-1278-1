@@ -491,7 +491,9 @@ class CRUDStockOwnershipConfirmation:
         db_obj = StockOwnershipConfirmation(
             batch_id=obj_in.batch_id,
             confirmer_id=confirmer.id,
-            confirmer_role=confirmer.role
+            confirmer_role=confirmer.role,
+            status=ConfirmationStatus.CONFIRMED,
+            confirmed_at=func.now()
         )
         db.add(db_obj)
         db.commit()
